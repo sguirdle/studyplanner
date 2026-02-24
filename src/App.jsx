@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./Navbar";
+import Home from "./home";
+import Todo from "./Todo";
+import Calendar from "./Calendar";
+import Notes from "./Notes";
+import Settings from "./Settings";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-
-  const addTask = () => {
-    const task = prompt("Enter task:");
-    if(task) setTasks([...tasks, task]);
-  }
-
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Study Planner</h1>
-      <button onClick={addTask}>Add Task</button>
-      <ul>
-        {tasks.map((task, i) => <li key={i}>{task}</li>)}
-      </ul>
-    </div>
+    <Router>
+      <Navbar /> {/* <- Always visible */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/todo" element={<Todo />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/notes" element={<Notes />} />
+        <Route path="/settings" element={<Settings />} />
+      </Routes>
+    </Router>
   );
 }
 
