@@ -10,15 +10,16 @@ function Todo() {
     setInput("");
   };
 
-  const toggleDone = (index) => {
-    const newTasks = [...tasks];
-    newTasks[index].completed = !newTasks[index].completed;
-    setTasks(newTasks);
+  const toggleDone = (id) => {
+    setTasks(tasks.map(task =>
+      task.id === id ? { ...task, completed: true } : task
+    ));
   };
 
-  const toggleUndo = (index) => {
-
-
+  const toggleUndo = (id) => {
+    setTasks(tasks.map(task =>
+      task.id === id ? { ...task, completed: false } : task
+    ));
   };
 
   return (
