@@ -10,10 +10,15 @@ function Todo() {
     setInput("");
   };
 
-  const toggleTask = (index) => {
+  const toggleDone = (index) => {
     const newTasks = [...tasks];
     newTasks[index].completed = !newTasks[index].completed;
     setTasks(newTasks);
+  };
+
+  const toggleUndo = (index) => {
+
+
   };
 
   return (
@@ -34,7 +39,7 @@ function Todo() {
       {tasks.filter(t => !t.completed).map((task, i) => (
         <div key={i} className="task">
           <span>{task.text}</span>
-          <button onClick={() => toggleTask(i)}>Done</button>
+          <button onClick={() => toggleDone(i)}>Done</button>
         </div>
       ))}
 
@@ -42,7 +47,7 @@ function Todo() {
       {tasks.filter(t => t.completed).map((task, i) => (
         <div key={i} className="task done">
           <span>{task.text}</span>
-          <button onClick={() => toggleTask(i)}>Undo</button>
+          <button onClick={() => toggleUndo(i)}>Undo</button>
         </div>
       ))}
     </div>
