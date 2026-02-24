@@ -6,7 +6,7 @@ function Todo() {
 
   const addTask = () => {
     if (input.trim() === "") return;
-    setTasks([...tasks, { text: input, completed: false }]);
+    setTasks([...tasks, { id: Date.now(), text: input, completed: false }]);
     setInput("");
   };
 
@@ -23,49 +23,33 @@ function Todo() {
   };
 
   return (
-
-    <div style={styles.container}>
+    <div className="todo-container">
       <h1>To Do</h1>
 
-      <div className="input-row">
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="New task..."
-        />
-        <button onClick={addTask}>Add</button>
-      </div>
+      <input
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="New task..."
+      />
+      <button onClick={addTask}>Add</button>
 
       <h2>To Do</h2>
-      {tasks.filter(t => !t.completed).map((task, i) => (
-        <div key={i} className="task">
+      {tasks.filter(t => !t.completed).map(task => (
+        <div key={task.id}>
           <span>{task.text}</span>
-          <button onClick={() => toggleDone(i)}>Done</button>
+          <button onClick={() => toggleDone(task.id)}>Done</button>
         </div>
       ))}
 
       <h2>Already Done</h2>
-      {tasks.filter(t => t.completed).map((task, i) => (
-        <div key={i} className="task done">
+      {tasks.filter(t => t.completed).map(task => (
+        <div key={task.id}>
           <span>{task.text}</span>
-          <button onClick={() => toggleUndo(i)}>Undo</button>
+          <button onClick={() => toggleUndo(task.id)}>Undo</button>
         </div>
       ))}
     </div>
   );
 }
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",      // 100% of viewport height
-    width: "100vw",       // 100% of viewport width
-    fontFamily: "Arial, sans-serif",
-    margin: 0,
-    padding: 0,
-    boxSizing: "border-box",
-  }
-}
+
 export default Todo;
